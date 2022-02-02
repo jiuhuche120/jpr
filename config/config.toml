@@ -1,0 +1,4 @@
+repo = "https://github.com/meshplus/bitxhub"
+time = "30ms"
+base = "master"
+Head = "release*"
