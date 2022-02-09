@@ -2,8 +2,9 @@ package main
 
 import (
 	"fmt"
-	"github.com/urfave/cli/v2"
 	"os"
+
+	"github.com/urfave/cli/v2"
 )
 
 func main() {
@@ -13,6 +14,7 @@ func main() {
 
 	app.Commands = []*cli.Command{
 		initCmd,
+		startCmd,
 		versionCmd,
 	}
 	err := app.Run(os.Args)

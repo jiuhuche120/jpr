@@ -3,11 +3,12 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/jiuhuche120/jpr/config"
-	"github.com/urfave/cli/v2"
 	"io/ioutil"
 	"os"
 	"path/filepath"
+
+	"github.com/jiuhuche120/jpr/config"
+	"github.com/urfave/cli/v2"
 )
 
 const DefaultConfig = "config/config.toml"
@@ -44,12 +45,12 @@ func Initialize(ctx *cli.Context) error {
 				return err
 			}
 		}
-	}else{
+	} else {
 		fmt.Println("jpr configuration file already exists")
 		fmt.Println("reinitializing would overwrite your configuration, Y/N?")
 		input := bufio.NewScanner(os.Stdin)
 		input.Scan()
-		if input.Text() == "Y" || input.Text() == "y"{
+		if input.Text() == "Y" || input.Text() == "y" {
 			data, err := ioutil.ReadFile(DefaultConfig)
 			if err != nil {
 				return err

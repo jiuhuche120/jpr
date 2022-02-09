@@ -1,0 +1,13 @@
+{
+  "msgtype": "markdown",
+  "markdown": {
+    "title":"合并分支提醒",
+    "text": ""
+  },
+  "at": {
+    "atUserIds": [
+      "user123"
+    ],
+    "isAtAll": false
+  }
+}
