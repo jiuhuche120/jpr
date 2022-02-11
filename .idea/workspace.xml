@@ -4,28 +4,7 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c3def24b-7071-4fce-8bef-4976264e8672" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/cmd/jpr/start.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/hook.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/git/msg.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/internal/server.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/jpr/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/jpr/init.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/jpr/jpr.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/jpr/jpr.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/jpr/version.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/jpr/version.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.toml" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.toml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/git/git.go" beforeDir="false" afterPath="$PROJECT_DIR$/git/git.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/git/git_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/git/http.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/git/http_test.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/git/pr.go" beforeDir="false" afterPath="$PROJECT_DIR$/git/pr.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/pull_request.json" afterDir="false" />
-    </list>
+    <list default="true" id="c3def24b-7071-4fce-8bef-4976264e8672" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />

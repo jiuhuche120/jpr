@@ -34,19 +34,6 @@ func (s *Server) GetPullRequestByStatus(status string) ([]git.PullRequest, error
 	return client.GetPullRequests(getUrl(s.config.Owner, s.config.Repo) + "?state=" + status)
 }
 
-func (s *Server) GetParentPullRequest(title string) (git.PullRequest, error) {
-	pulls, err := s.GetAllPullRequests()
-	if err != nil {
-		return git.PullRequest{}, err
-	}
-	for _, pull := range pulls {
-		if pull.Title == title {
-			return pull, nil
-		}
-	}
-	return git.PullRequest{}, nil
-}
-
 func (s *Server) Start() {
 	log.Infof("start server")
 	go func() {
