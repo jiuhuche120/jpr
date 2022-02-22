@@ -4,10 +4,10 @@ import (
 	"context"
 	"regexp"
 	"strings"
-	"time"
 
 	"github.com/jiuhuche120/jpr/config"
 	"github.com/jiuhuche120/jpr/git"
+	"github.com/procyon-projects/chrono"
 	"github.com/prometheus/common/log"
 )
 
@@ -36,45 +36,40 @@ func (s *Server) GetPullRequestByStatus(status string) ([]git.PullRequest, error
 
 func (s *Server) Start() {
 	log.Infof("start server")
-	go func() {
-		ticker := time.NewTicker(s.config.Time)
-		defer ticker.Stop()
-		for {
-			select {
-			case <-s.ctx.Done():
-				return
-			case <-ticker.C:
-				log.Infof("start check pull request")
-				pulls, err := s.GetAllPullRequests()
-				if err != nil {
-					log.Error(err)
-					return
-				}
-				for i := 0; i < len(pulls); i++ {
-					reg := regexp.MustCompile(s.config.Head)
-					var callPulls []git.PullRequest
-					if pulls[i].State == "open" && reg.FindString(pulls[i].Base.Ref) != "" {
-						for j := 0; j < len(pulls); j++ {
-							if i == j {
-								continue
-							}
-							if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "open" {
-								break
-							}
-							if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "close" && s.checkMerged(pulls[j]) {
-								break
-							}
-							log.Infof("the pull request from %v to %v is lost", pulls[i].Head.Ref, s.config.Base)
-							s.getUser(&pulls[i])
-							callPulls = append(callPulls, pulls[i])
-						}
-						s.callHook(callPulls)
+	taskScheduler := chrono.NewDefaultTaskScheduler()
+	_, err := taskScheduler.ScheduleWithCron(func(ctx context.Context) {
+		log.Infof("start check pull request")
+		pulls, err := s.GetAllPullRequests()
+		if err != nil {
+			log.Error(err)
+			return
+		}
+		for i := 0; i < len(pulls); i++ {
+			reg := regexp.MustCompile(s.config.Head)
+			var callPulls []git.PullRequest
+			if pulls[i].State == "open" && reg.FindString(pulls[i].Base.Ref) != "" {
+				for j := 0; j < len(pulls); j++ {
+					if i == j {
+						continue
 					}
+					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "open" {
+						break
+					}
+					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "close" && s.checkMerged(pulls[j]) {
+						break
+					}
+					log.Infof("the pull request from %v to %v is lost", pulls[i].Head.Ref, s.config.Base)
+					s.getUser(&pulls[i])
+					callPulls = append(callPulls, pulls[i])
 				}
-				log.Infof("stop check pull request")
+				s.callHook(callPulls)
 			}
 		}
-	}()
+		log.Infof("stop check pull request")
+	}, s.config.Cron)
+	if err != nil {
+		log.Infof("task has been scheduled")
+	}
 }
 
 func (s *Server) Stop() {

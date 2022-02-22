@@ -3,7 +3,6 @@ package config
 import (
 	"fmt"
 	"path/filepath"
-	"time"
 
 	"github.com/mitchellh/go-homedir"
 	"github.com/spf13/viper"
@@ -15,7 +14,7 @@ const DefaultName = "config.toml"
 type Config struct {
 	Owner   string            `toml:"owner"`
 	Repo    string            `toml:"repo"`
-	Time    time.Duration     `toml:"time"`
+	Cron    string            `toml:"cron"`
 	Base    string            `toml:"base"`
 	Head    string            `toml:"head"`
 	Token   string            `toml:"token"`
@@ -75,7 +74,7 @@ func LoadConfig() (Config, error) {
 
 func DefaultConfig() Config {
 	return Config{
-		Time: time.Hour * 3,
+		Cron: "0 30 16 * * *",
 		Head: "release*",
 		Base: "master",
 	}

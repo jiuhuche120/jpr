@@ -1,9 +1,9 @@
 owner = "jiuhuche120"
-repo = "test_action"
-time = "3h"
+repo = "XXX"
+time = "0 30 16 * * *"
 base = "master"
 Head = "release*"
 token = "ghp_XXX"
 webhook = "XXX"
 [users]
-    "jiuhuche120" = "XXX"
+    "jiuhuche120" = "173XXX"
