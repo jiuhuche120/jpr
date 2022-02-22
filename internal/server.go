@@ -44,27 +44,32 @@ func (s *Server) Start() {
 			log.Error(err)
 			return
 		}
+		var callPulls []git.PullRequest
 		for i := 0; i < len(pulls); i++ {
 			reg := regexp.MustCompile(s.config.Head)
-			var callPulls []git.PullRequest
 			if pulls[i].State == "open" && reg.FindString(pulls[i].Base.Ref) != "" {
+				flag := false
 				for j := 0; j < len(pulls); j++ {
 					if i == j {
 						continue
 					}
 					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "open" {
+						flag = true
 						break
 					}
 					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "close" && s.checkMerged(pulls[j]) {
+						flag = true
 						break
 					}
+				}
+				if !flag {
 					log.Infof("the pull request from %v to %v is lost", pulls[i].Head.Ref, s.config.Base)
 					s.getUser(&pulls[i])
 					callPulls = append(callPulls, pulls[i])
 				}
-				s.callHook(callPulls)
 			}
 		}
+		s.callHook(callPulls)
 		log.Infof("stop check pull request")
 	}, s.config.Cron)
 	if err != nil {

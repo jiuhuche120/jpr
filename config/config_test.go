@@ -16,13 +16,6 @@ func TestConfig_LoadConfig(t *testing.T) {
 	require.Equal(t, "release*", config.Head)
 }
 
-func TestDefaultConfig(t *testing.T) {
-	config := DefaultConfig()
-	require.Equal(t, "0 30 16 * * *", config.Cron)
-	require.Equal(t, "master", config.Base)
-	require.Equal(t, "release*", config.Head)
-}
-
 func TestPathRoot(t *testing.T) {
 	path, err := PathRoot()
 	require.Nil(t, err)

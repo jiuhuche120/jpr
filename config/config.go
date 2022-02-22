@@ -48,7 +48,7 @@ func (c *Config) check() error {
 }
 
 func LoadConfig() (Config, error) {
-	config := DefaultConfig()
+	config := Config{}
 	path, err := PathRoot()
 	if err != nil {
 		return Config{}, err
@@ -70,14 +70,6 @@ func LoadConfig() (Config, error) {
 		return Config{}, err
 	}
 	return config, nil
-}
-
-func DefaultConfig() Config {
-	return Config{
-		Cron: "0 30 16 * * *",
-		Head: "release*",
-		Base: "master",
-	}
 }
 
 func PathRoot() (string, error) {
