@@ -1,25 +1,26 @@
 package config
 
 import (
+	"encoding/json"
 	"fmt"
+	"io/ioutil"
 	"path/filepath"
 
 	"github.com/mitchellh/go-homedir"
-	"github.com/spf13/viper"
 )
 
 const DefaultPath = "~/.jpr/"
-const DefaultName = "config.toml"
+const DefaultName = "config.json"
 
 type Config struct {
-	Owner   string            `toml:"owner"`
-	Repo    string            `toml:"repo"`
-	Cron    string            `toml:"cron"`
-	Base    string            `toml:"base"`
-	Head    string            `toml:"head"`
-	Token   string            `toml:"token"`
-	WebHook string            `toml:"webhook"`
-	Users   map[string]string `toml:"users"`
+	Owner   string            `json:"owner"`
+	Repo    string            `json:"repo"`
+	Cron    string            `json:"cron"`
+	Base    string            `json:"base"`
+	Head    string            `json:"head"`
+	Token   string            `json:"token"`
+	WebHook string            `json:"webhook"`
+	Users   map[string]string `json:"users"`
 }
 
 func (c *Config) check() error {
@@ -53,20 +54,12 @@ func LoadConfig() (Config, error) {
 	if err != nil {
 		return Config{}, err
 	}
-	v := viper.New()
-	v.SetConfigFile(filepath.Join(path, DefaultName))
-	v.SetConfigType("toml")
-	v.AutomaticEnv()
-	v.SetEnvPrefix("JPR")
-	err = v.ReadInConfig()
+	bytes, err := ioutil.ReadFile(filepath.Join(path, DefaultName))
 	if err != nil {
 		return Config{}, err
 	}
-	err = v.Unmarshal(&config)
+	err = json.Unmarshal(bytes, &config)
 	if err != nil {
-		return Config{}, err
-	}
-	if err := config.check(); err != nil {
 		return Config{}, err
 	}
 	return config, nil

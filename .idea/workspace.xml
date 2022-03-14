@@ -5,12 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3def24b-7071-4fce-8bef-4976264e8672" name="Changes" comment="Changes">
+      <change afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/jpr/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/jpr/init.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.toml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/config/config_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config_test.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/internal/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +39,11 @@
   <component name="GoLibraries">
     <option name="indexEntireGoPath" value="false" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/config/config_test.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/internal/server.go" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/config/config.json" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="24XXG2OvrL271eBtOYM6KyeOyY4" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
@@ -63,8 +68,20 @@
       <recent name="$PROJECT_DIR$/config" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestDefaultConfig in github.com/jiuhuche120/jpr/config (1)">
+  <component name="RunManager" selected="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config">
     <configuration name="TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="jpr" />
+      <working_directory value="$PROJECT_DIR$/config" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/jiuhuche120/jpr/config" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestConfig_LoadConfig\E$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config (2)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="jpr" />
       <working_directory value="$PROJECT_DIR$/config" />
       <root_directory value="$PROJECT_DIR$" />
@@ -100,18 +117,6 @@
       <pattern value="^\QTestDefaultConfig\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestDefaultConfig in github.com/jiuhuche120/jpr/config" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="jpr" />
-      <working_directory value="$PROJECT_DIR$/config" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/jiuhuche120/jpr/config" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestDefaultConfig\E$" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestPathRoot in github.com/jiuhuche120/jpr/config" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="jpr" />
       <working_directory value="$PROJECT_DIR$/config" />
@@ -126,11 +131,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config" />
+        <item itemvalue="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config (2)" />
         <item itemvalue="Go Test.TestDefaultConfig in github.com/jiuhuche120/jpr/config (1)" />
         <item itemvalue="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config (1)" />
         <item itemvalue="Go Test.TestPathRoot in github.com/jiuhuche120/jpr/config" />
-        <item itemvalue="Go Test.TestDefaultConfig in github.com/jiuhuche120/jpr/config" />
-        <item itemvalue="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config" />
       </list>
     </recent_temporary>
   </component>

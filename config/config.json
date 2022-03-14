@@ -1,0 +1,12 @@
+{
+  "owner": "jiuhuche120",
+  "repo": "XXX",
+  "cron": "0 30 16 * * *",
+  "base": "master",
+  "Head": "release*",
+  "token": "ghp_XXX",
+  "webhook": "XXX",
+  "users": {
+    "jiuhuche120": "XXX"
+  }
+}

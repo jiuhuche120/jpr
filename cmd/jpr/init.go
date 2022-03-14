@@ -11,7 +11,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-const DefaultConfig = "config/config.toml"
+const DefaultConfig = "config/config.json"
 
 var initCmd = &cli.Command{
 	Name:   "init",
