@@ -57,7 +57,7 @@ func (s *Server) Start() {
 						flag = true
 						break
 					}
-					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "close" && s.checkMerged(pulls[j]) {
+					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "closed" && s.checkMerged(pulls[j]) {
 						flag = true
 						break
 					}

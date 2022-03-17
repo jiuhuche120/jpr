@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c3def24b-7071-4fce-8bef-4976264e8672" name="Changes" comment="Changes">
-      <change afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/internal/server_test.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmd/jpr/init.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/jpr/init.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config.toml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/config_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/config/config_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/config/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/internal/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/internal/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -68,7 +66,19 @@
       <recent name="$PROJECT_DIR$/config" />
     </key>
   </component>
-  <component name="RunManager" selected="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config">
+  <component name="RunManager" selected="Go Test.Test in github.com/jiuhuche120/jpr/internal">
+    <configuration name="Test in github.com/jiuhuche120/jpr/internal" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="jpr" />
+      <working_directory value="$PROJECT_DIR$/internal" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/jiuhuche120/jpr/internal" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTest\E$" />
+      <method v="2" />
+    </configuration>
     <configuration name="TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config (1)" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="jpr" />
       <working_directory value="$PROJECT_DIR$/config" />
@@ -117,25 +127,13 @@
       <pattern value="^\QTestDefaultConfig\E$" />
       <method v="2" />
     </configuration>
-    <configuration name="TestPathRoot in github.com/jiuhuche120/jpr/config" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="jpr" />
-      <working_directory value="$PROJECT_DIR$/config" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/jiuhuche120/jpr/config" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestPathRoot\E$" />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Test.Test in github.com/jiuhuche120/jpr/internal" />
         <item itemvalue="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config" />
         <item itemvalue="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config (2)" />
         <item itemvalue="Go Test.TestDefaultConfig in github.com/jiuhuche120/jpr/config (1)" />
         <item itemvalue="Go Test.TestConfig_LoadConfig in github.com/jiuhuche120/jpr/config (1)" />
-        <item itemvalue="Go Test.TestPathRoot in github.com/jiuhuche120/jpr/config" />
       </list>
     </recent_temporary>
   </component>
