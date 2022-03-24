@@ -5,6 +5,8 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+
+	"github.com/jiuhuche120/jpr/config"
 )
 
 type ClientOption = func(*Client)
@@ -76,4 +78,16 @@ func (c *Client) GetPullRequests(url string) ([]PullRequest, error) {
 		return nil, err
 	}
 	return pulls, nil
+}
+
+func (c *Client) GetAllPullRequests(gits config.Gits) ([]PullRequest, error) {
+	return c.GetPullRequestByStatus(gits, "all")
+}
+
+func (c *Client) GetPullRequestByStatus(gits config.Gits, status string) ([]PullRequest, error) {
+	return c.GetPullRequests(getUrl(gits.Owner, gits.Repo) + "?state=" + status)
+}
+
+func getUrl(owner, repo string) string {
+	return "https://api.github.com/repos/" + owner + "/" + repo + "/pulls"
 }

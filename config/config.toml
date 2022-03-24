@@ -1,0 +1,37 @@
+title = "Jpr Config File"
+
+token = "ghp_XXX"
+webhook = "XXX"
+[gits]
+    # github repository
+    [gits.bitxhub]
+        owner = "meshplus"
+        repo = "bitxhub"
+        rules = ["checkMainBranchMerged.rule1","checkPullRequestTimeout.rule1"]
+
+    [gits.pier]
+        owner = "meshplus"
+        repo = "pier"
+        rules = ["checkMainBranchMerged.rule1","checkPullRequestTimeout.rule1"]
+
+[rules]
+    # Check if the main branches are merged
+    [rules.checkMainBranchMerged.rule1]
+        base = "master"
+        head = "release*"
+        cron = "0 40 11 * * *"
+
+    # Check if the pull request timed out
+    [rules.checkPullRequestTimeout.rule1]
+        timeout = "24h"
+        cron = "0 40 11 * * *"
+
+[log]
+    level = "info"
+
+[dingTalk]
+    [dingTalk.XXX]
+        phone = "XXX"
+        email = "XXX"
+
+

@@ -1,107 +1,58 @@
 package internal
 
 import (
-	"context"
-	"regexp"
 	"strings"
 
 	"github.com/jiuhuche120/jpr/config"
 	"github.com/jiuhuche120/jpr/git"
 	"github.com/procyon-projects/chrono"
-	"github.com/prometheus/common/log"
+	"github.com/sirupsen/logrus"
 )
 
 type Server struct {
-	config config.Config
-	ctx    context.Context
-	cancel context.CancelFunc
+	config    config.Config
+	scheduler chrono.TaskScheduler
+	client    git.Client
+	dingTalk  git.Client
+	log       logrus.Logger
 }
 
-func NewServer(config config.Config) *Server {
-	ctx, cancel := context.WithCancel(context.Background())
-	return &Server{config: config, ctx: ctx, cancel: cancel}
-}
-
-func (s *Server) GetAllPullRequests() ([]git.PullRequest, error) {
-	return s.GetPullRequestByStatus("all")
-}
-
-func (s *Server) GetPullRequestByStatus(status string) ([]git.PullRequest, error) {
+func NewServer(config *config.Config) *Server {
 	client := git.NewClient(
 		git.AddHeader("Accept", "application/vnd.github.v3+json"),
-		git.AddHeader("Authorization", "token "+s.config.Token),
+		git.AddHeader("Authorization", "token "+config.Token),
 	)
-	return client.GetPullRequests(getUrl(s.config.Owner, s.config.Repo) + "?state=" + status)
+	dingTalk := git.NewClient(
+		git.AddHeader("Content-Type", "application/json"),
+	)
+	return &Server{config: *config, client: *client, dingTalk: *dingTalk, log: *logrus.New()}
 }
 
 func (s *Server) Start() {
-	log.Infof("start server")
-	taskScheduler := chrono.NewDefaultTaskScheduler()
-	_, err := taskScheduler.ScheduleWithCron(func(ctx context.Context) {
-		log.Infof("start check pull request")
-		pulls, err := s.GetAllPullRequests()
-		if err != nil {
-			log.Error(err)
-			return
-		}
-		var callPulls []git.PullRequest
-		for i := 0; i < len(pulls); i++ {
-			reg := regexp.MustCompile(s.config.Head)
-			if pulls[i].State == "open" && reg.FindString(pulls[i].Base.Ref) != "" {
-				flag := false
-				for j := 0; j < len(pulls); j++ {
-					if i == j {
-						continue
-					}
-					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "open" {
-						flag = true
-						break
-					}
-					if i != j && pulls[i].Title == pulls[j].Title && pulls[j].Base.Ref == s.config.Base && pulls[j].State == "closed" && s.checkMerged(pulls[j]) {
-						flag = true
-						break
-					}
-				}
-				if !flag {
-					log.Infof("the pull request from %v to %v is lost", pulls[i].Head.Ref, s.config.Base)
-					s.getUser(&pulls[i])
-					callPulls = append(callPulls, pulls[i])
-				}
+	level, err := logrus.ParseLevel(s.config.Log.Level)
+	if err != nil {
+		s.log.Error(err)
+	}
+	s.log.SetLevel(level)
+	s.log.Infof("start server")
+	s.scheduler = chrono.NewDefaultTaskScheduler()
+	for name, gits := range s.config.Gits {
+		s.log.Infof("start %v check", name)
+		for _, rule := range gits.Rules {
+			str := strings.Split(rule, ".")
+			switch str[0] {
+			case CheckMainBranchMerged:
+				r := s.config.GetCheckMainBranchMergedRule(gits)
+				go s.checkMainBranchMerged(name, gits, r)
+			case CheckPullRequestTimeout:
+				r := s.config.GetCheckPullRequestTimeoutRule(gits)
+				go s.checkPullRequestTimeout(name, gits, r)
 			}
 		}
-		s.callHook(callPulls)
-		log.Infof("stop check pull request")
-	}, s.config.Cron)
-	if err != nil {
-		log.Infof("task has been scheduled")
 	}
 }
 
 func (s *Server) Stop() {
-	s.cancel()
-	log.Infof("stop server")
-}
-
-func (s *Server) callHook(pull []git.PullRequest) {
-	msg := git.NewMsg(pull)
-	client := git.NewClient(
-		git.AddHeader("Content-Type", "application/json"),
-	)
-	client.Post(s.config.WebHook, msg)
-}
-func (s *Server) checkMerged(pull git.PullRequest) bool {
-	client := git.NewClient(
-		git.AddHeader("Accept", "application/vnd.github.v3+json"),
-		git.AddHeader("Authorization", "token "+s.config.Token),
-	)
-	res := client.Get(pull.Url + "/merge")
-	return strings.Contains(string(res), "No Content")
-}
-
-func (s *Server) getUser(pull *git.PullRequest) {
-	pull.DingTalk = s.config.Users[pull.User.Login]
-}
-
-func getUrl(owner, repo string) string {
-	return "https://api.github.com/repos/" + owner + "/" + repo + "/pulls"
+	s.scheduler.Shutdown()
+	s.log.Infof("stop server")
 }
