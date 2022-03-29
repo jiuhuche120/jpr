@@ -7,11 +7,12 @@ import (
 	"os"
 	"path/filepath"
 
+	"github.com/gobuffalo/packr/v2"
 	"github.com/jiuhuche120/jpr/config"
 	"github.com/urfave/cli/v2"
 )
 
-const DefaultConfig = "config/config.toml"
+const DefaultConfig = "config.toml"
 
 var initCmd = &cli.Command{
 	Name:   "init",
@@ -20,6 +21,7 @@ var initCmd = &cli.Command{
 }
 
 func Initialize(ctx *cli.Context) error {
+	box := packr.New("Jpr Config", "../../config")
 	path, err := config.PathRoot()
 	if err != nil {
 		return err
@@ -36,7 +38,7 @@ func Initialize(ctx *cli.Context) error {
 	_, err = os.Stat(filepath.Join(path, config.DefaultName))
 	if err != nil {
 		if os.IsNotExist(err) {
-			data, err := ioutil.ReadFile(DefaultConfig)
+			data, err := box.Find(DefaultConfig)
 			if err != nil {
 				return err
 			}
@@ -51,7 +53,7 @@ func Initialize(ctx *cli.Context) error {
 		input := bufio.NewScanner(os.Stdin)
 		input.Scan()
 		if input.Text() == "Y" || input.Text() == "y" {
-			data, err := ioutil.ReadFile(DefaultConfig)
+			data, err := box.Find(DefaultConfig)
 			if err != nil {
 				return err
 			}
