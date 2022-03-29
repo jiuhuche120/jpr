@@ -14,11 +14,11 @@ type At struct {
 	IsAtAll   bool     `json:"isAtAll"`
 }
 
-func NewMsg(pulls []PullRequest) Msg {
+func NewMsg(pulls []PullRequest, text string) Msg {
 	var msg Msg
 	msg.MsgType = "text"
 	for i := 0; i < len(pulls); i++ {
-		msg.Text.Content += "🔗:" + pulls[i].HtmlUrl + " 需要合并分支到master分支 @" + pulls[i].DingTalk + "\n"
+		msg.Text.Content += "🔗:" + pulls[i].HtmlUrl + " " + text + " @" + pulls[i].DingTalk + "\n"
 		msg.At.AtMobiles = append(msg.At.AtMobiles, pulls[i].DingTalk)
 	}
 	msg.At.IsAtAll = false
