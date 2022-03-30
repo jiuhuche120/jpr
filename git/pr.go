@@ -10,7 +10,7 @@ type PullRequest struct {
 	Title    string    `json:"title"`
 	User     User      `json:"user"`
 	Body     string    `json:"body"`
-	CreateAt time.Time `json:"create_at"`
+	CreateAt time.Time `json:"created_at"`
 	MergedAt time.Time `json:"merged_at"`
 	Head     Head      `json:"head"`
 	Base     Base      `json:"base"`
