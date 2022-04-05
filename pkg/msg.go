@@ -1,4 +1,4 @@
-package git
+package pkg
 
 type Msg struct {
 	MsgType string `json:"msgtype"`

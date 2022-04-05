@@ -4,7 +4,7 @@ import (
 	"strings"
 
 	"github.com/jiuhuche120/jpr/config"
-	"github.com/jiuhuche120/jpr/git"
+	"github.com/jiuhuche120/jpr/pkg"
 	"github.com/procyon-projects/chrono"
 	"github.com/sirupsen/logrus"
 )
@@ -12,18 +12,18 @@ import (
 type Server struct {
 	config    config.Config
 	scheduler chrono.TaskScheduler
-	client    git.Client
-	dingTalk  git.Client
+	client    pkg.Client
+	dingTalk  pkg.Client
 	log       logrus.Logger
 }
 
 func NewServer(config *config.Config) *Server {
-	client := git.NewClient(
-		git.AddHeader("Accept", "application/vnd.github.v3+json"),
-		git.AddHeader("Authorization", "token "+config.Token),
+	client := pkg.NewClient(
+		pkg.AddHeader("Accept", "application/vnd.github.v3+json"),
+		pkg.AddHeader("Authorization", "token "+config.Token),
 	)
-	dingTalk := git.NewClient(
-		git.AddHeader("Content-Type", "application/json"),
+	dingTalk := pkg.NewClient(
+		pkg.AddHeader("Content-Type", "application/json"),
 	)
 	return &Server{config: *config, client: *client, dingTalk: *dingTalk, log: *logrus.New()}
 }

@@ -72,11 +72,11 @@ func (c *Config) check() error {
 			switch str[0] {
 			case "checkMainBranchMerged":
 				if config.Rules.CheckMainBranchMerged[str[1]] == nil {
-					return fmt.Errorf("git %v's rule %v is not exsit", k, rule)
+					return fmt.Errorf("pkg %v's rule %v is not exsit", k, rule)
 				}
 			case "checkPullRequestTimeout":
 				if config.Rules.CheckPullRequestTimeout[str[1]] == nil {
-					return fmt.Errorf("git %v's rule %v is not exsit", k, rule)
+					return fmt.Errorf("pkg %v's rule %v is not exsit", k, rule)
 				}
 			}
 		}
