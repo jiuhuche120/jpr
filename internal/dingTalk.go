@@ -13,9 +13,15 @@ func (s *Server) callHook(pull []pkg.PullRequest, typ string) {
 	defer mutex.Unlock()
 	switch typ {
 	case CheckMainBranchMerged:
-		s.dingTalk.Post(s.config.Webhook, pkg.NewMsg(pull, "需要合并分支到master分支"))
+		_, err := s.dingTalk.Post(s.config.Webhook, pkg.NewMsg(pull, "需要合并分支到master分支"))
+		if err != nil {
+			s.log.Error(err)
+		}
 	case CheckPullRequestTimeout:
-		s.dingTalk.Post(s.config.Webhook, pkg.NewMsg(pull, "PR存活超时"))
+		_, err := s.dingTalk.Post(s.config.Webhook, pkg.NewMsg(pull, "PR存活超时"))
+		if err != nil {
+			s.log.Error(err)
+		}
 	}
 }
 

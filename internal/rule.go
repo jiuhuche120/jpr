@@ -17,15 +17,22 @@ const (
 )
 
 func (s *Server) checkMerged(pull pkg.PullRequest) bool {
-	res := s.client.Get(pull.Url + "/merge")
+	res, err := s.client.Get(pull.Url + "/merge")
+	if err != nil {
+		s.log.Error(err)
+	}
 	return strings.Contains(string(res), "No Content")
 }
 
 func (s *Server) IsWorkingDay() bool {
 	today := time.Now().Format("2006-01-02")
-	bytes := s.client.Get("https://timor.tech/api/holiday/info/" + today)
+	bytes, err := s.client.Get("https://timor.tech/api/holiday/info/" + today)
+	if err != nil {
+		s.log.Error(err)
+		return false
+	}
 	var day pkg.Day
-	err := json.Unmarshal(bytes, &day)
+	err = json.Unmarshal(bytes, &day)
 	if err != nil {
 		s.log.Errorf("holiday api is error %v", err)
 		return false
